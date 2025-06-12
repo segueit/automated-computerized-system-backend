@@ -10,7 +10,7 @@ import { LoginColdStorageDto } from 'src/dto/login-cold-storage.dto';
 import { JwtService } from '@nestjs/jwt';
 import { v4 as uuid } from 'uuid';
 import { nanoid } from 'nanoid';
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from 'src/services/mail/mail.service';
 import { ResetPasswordDto } from 'src/dto/reset-password.dto';
 
 @Injectable()

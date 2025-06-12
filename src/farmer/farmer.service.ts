@@ -9,7 +9,7 @@ import {
 import { DatabaseService } from 'src/database/database.service';
 import { CreateFarmerDto } from 'src/dto/create-farmer.dto';
 import { UpdatePackagesDto } from 'src/dto/update-packages.dto';
-import { QrService } from 'src/qr/qr.service';
+import { QrService } from 'src/services/qr/qr.service';
 
 @Injectable()
 export class FarmerService {
