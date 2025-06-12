@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model ColdStorage {
+  id  String  @id @default(uuid())
+  name  String
+  codes Int[]
+  email String  @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  refreshToken RefreshToken[]
+  resetToken  ResetToken[]
+  farmer  Farmer[]
+}
+
+model RefreshToken {
+  id  String @id @default(uuid())
+  token String @unique
+  storageId  String @unique
+  storage  ColdStorage  @relation(fields: [storageId],  references: [id])
+  expiryDate  DateTime
+}
+
+model ResetToken {
+  id String @id @default(uuid())
+  token String @unique
+  storageId  String @unique
+  storage  ColdStorage  @relation(fields: [storageId],  references: [id])
+}
+
+model Farmer {
+  id String @id @default(uuid())
+  storageId String
+  storage ColdStorage @relation(fields: [storageId], references: [id])
+  name  String
+  produce String
+  dateOfArrival DateTime
+  numberOfPackages  Int
+  daysToStore Int
+  farmCode  Int
+  qrCode  String 
+  updateLogs UpdateLogs[]
+}
+
+model UpdateLogs {
+  id String @id @default(uuid())
+  farmerId  String @unique
+  farmer  Farmer @relation(fields: [farmerId], references: [id])
+  logs  Json
+  updatedAt DateTime  @updatedAt
+}
