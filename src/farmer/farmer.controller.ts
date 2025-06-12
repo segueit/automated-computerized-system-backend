@@ -19,7 +19,7 @@ import { UpdatePackagesDto } from 'src/dto/update-packages.dto';
 @Controller('farmer')
 export class FarmerController {
   constructor(private readonly farmerService: FarmerService) {}
-  @Post('create')
+  @Post('')
   async create(@Body() createFarmerDto: CreateFarmerDto, @Req() req) {
     return this.farmerService.create(req.storageId, createFarmerDto);
   }

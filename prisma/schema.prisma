@@ -34,7 +34,7 @@ model RefreshToken {
   id  String @id @default(uuid())
   token String @unique
   storageId  String @unique
-  storage  ColdStorage  @relation(fields: [storageId],  references: [id])
+  storage  ColdStorage  @relation(fields: [storageId],  references: [id], onDelete: Cascade)
   expiryDate  DateTime
 }
 
@@ -42,13 +42,13 @@ model ResetToken {
   id String @id @default(uuid())
   token String @unique
   storageId  String @unique
-  storage  ColdStorage  @relation(fields: [storageId],  references: [id])
+  storage  ColdStorage  @relation(fields: [storageId],  references: [id], onDelete: Cascade)
 }
 
 model Farmer {
   id String @id @default(uuid())
   storageId String
-  storage ColdStorage @relation(fields: [storageId], references: [id])
+  storage ColdStorage @relation(fields: [storageId], references: [id], onDelete: Cascade)
   name  String
   produce String
   dateOfArrival DateTime
@@ -62,7 +62,7 @@ model Farmer {
 model UpdateLogs {
   id String @id @default(uuid())
   farmerId  String @unique
-  farmer  Farmer @relation(fields: [farmerId], references: [id])
+  farmer  Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
   logs  Json
   updatedAt DateTime  @updatedAt
 }
